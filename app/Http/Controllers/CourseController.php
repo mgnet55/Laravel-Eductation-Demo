@@ -55,7 +55,7 @@ class CourseController extends Controller
     function show(Course $course)
     {
         if (auth()->user()) {
-            (bool)$enrolled = auth()->user()->courses()->find($course->id);
+            (bool)$enrolled = $course->students->where('id','=',Auth::id());
         }
         $course = Course::with('teacher:id,name', 'category:id,title', 'reviews')->findOrFail($course->id);
         return view('course', ['course' => $course, 'enrolled' => $enrolled ?? false]);
@@ -64,7 +64,7 @@ class CourseController extends Controller
     public
     function edit(Course $course)
     {
-        if (Gate::allows('isTeacher') && $course->teacher_id = Auth::id()) {
+        if (Gate::allows('isTeacher') && $course->teacher_id == Auth::id()) {
             return view('course_edit', ['course' => $course]);
         } else abort(403);
     }
@@ -72,7 +72,7 @@ class CourseController extends Controller
     public
     function update(CourseRequest $request, Course $course)
     {
-        if (Gate::allows('isTeacher') && $course->teacher_id = Auth::id()) {
+        if (Gate::allows('isTeacher') && $course->teacher_id == Auth::id()) {
             $course->update($request->all());
             return redirect()->route('courses.show', $course->id);
         } else abort(403);
@@ -81,7 +81,7 @@ class CourseController extends Controller
     public
     function destroy(Course $course)
     {
-        if (Gate::allows('isTeacher') && $course->teacher_id = Auth::id()) {
+        if (Gate::allows('isTeacher') && $course->teacher_id == Auth::id()) {
             $course->deleteOrFail();
             return redirect('/my-courses');
         } else abort(403);

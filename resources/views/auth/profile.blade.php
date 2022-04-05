@@ -4,11 +4,13 @@
 
     <div class="row">
         <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
-                                                                                         width="150px"
-                                                                                         src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span
-                    class="font-weight-bold"></span>{{auth()->user()->name}}<span
-                    class="text-black-50">{{auth()->user()->email}}</span><span> </span></div>
+            <div class="d-flex flex-column align-items-center text-center p-3">
+                <img class="rounded-circle mt-5" width="150px"
+                     src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                <span class="text-black-50">{{ucfirst(auth()->user()->type)}}</span>
+                <span class="font-weight-bold"></span>{{auth()->user()->name}}
+                <span class="text-black-50">{{auth()->user()->email}}</span>
+            </div>
         </div>
         <div class="col-md-8">
             @if ($errors->any())
@@ -31,16 +33,6 @@
                                    class="form-control"
                                    placeholder="name"
                                    value="{{old('name') ?? auth()->user()->name}}">
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-12"><label class="labels">Email</label>
-                            <input type="email"
-                                   id="email"
-                                   name="email"
-                                   class="form-control"
-                                   placeholder="education"
-                                   value="{{old('email') ?? auth()->user()->email}}">
                         </div>
                     </div>
                     <div class="row mt-3">

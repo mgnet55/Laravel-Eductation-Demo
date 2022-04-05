@@ -24,8 +24,7 @@ class ProfileUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'email',
-            'name'=>'string',
+            'name'=>'regex:/^[a-zA-Z\s]*$/',
             'current_password' => 'required',
             'password'=>'confirmed',
         ];

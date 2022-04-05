@@ -46,8 +46,10 @@ class UserController extends Controller
     }
 
     public function update(ProfileUpdateRequest $request){
-        dd($request);
-        if (Hash::check($request['password'],Auth::user()->password) );
+
+        if (Hash::check($request['current_password'],Auth::user()->password) ){
+            dd($request);
+        }
     }
 
 

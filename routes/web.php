@@ -28,8 +28,8 @@ use Illuminate\Support\Facades\Route;
 Route::resource('courses', CourseController::class);
 Route::get('/', [CourseController::class, 'latest']);
 Route::middleware('auth')->group(function () {
-    Route::get('courses/{course}/enroll', [UserController::class, 'enroll']);;
-    Route::get('courses/{course}/unenroll', [UserController::class, 'unenroll']);
+    Route::get('courses/{course}/enroll', [UserController::class, 'enroll'])->name('courses.enroll');;
+    Route::get('courses/{course}/unenroll', [UserController::class, 'unenroll'])->name('courses.unenroll');
     Route::post('profile', [UserController::class, 'update']);
 });
 

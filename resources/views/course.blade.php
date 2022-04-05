@@ -29,22 +29,20 @@
                 @endguest
                 @auth
                     @if(auth()->user()->type=='teacher')
-                        <a href="/courses/{{ $course->id }}/edit"
-                           class="btn btn-primary rounded-0 btn-lg px-5">Edit</a>
-            <form action="{{ route('courses.destroy',$course->id) }}" method="post">
-                @csrf @method('delete')
-                <button type="submit" class="btn btn-danger rounded-0 btn-lg px-5">Delete</button>
-            </form>
-            @elseif (!$enrolled)
-                <a href="/courses/{{ $course->id }}/enroll"
-                   class="btn btn-primary rounded-0 btn-lg px-5">Enroll</a>
-            @else
-                <a href="/courses/{{ $course->id }}/unenroll"
-                   class="btn btn-danger rounded-0 btn-lg px-5">Unenroll</a>
-                @endif
+                        @if(auth()->id() == $course->teacher_id)
+                        <a href="{{route('courses.edit',$course->id)}}" class="btn btn-primary rounded-0 btn-lg px-5">Edit</a>
+                        <form action="{{ route('courses.destroy',$course->id) }}" method="post">
+                            @csrf @method('delete')
+                            <button type="submit" class="btn btn-danger rounded-0 btn-lg px-5">Delete</button>
+                        </form>
+                        @endif
+                    @elseif(!$enrolled)
+                        <a href="{{route('courses.enroll',$course->id)}}" class="btn btn-primary rounded-0 btn-lg px-5">Enroll</a>
+                    @else
+                    <a href="{{route('courses.unenroll',$course->id)}}" class="btn btn-danger rounded-0 btn-lg px-5">Unenroll</a>
+                    @endif
                 @endauth
-
-                </p>
+            </p>
 
         </div>
 

@@ -22,12 +22,15 @@ class ReviewController extends Controller
 
     public function store(ReviewRequest $request,Course $course)
     {
+        if(auth()){
         $review = $request->all();
         $review['user_id'] = auth()->user()->id;
         $review['course_id'] = $course->id;
 
         Review::create($review);
         return back();
+        }
+        abort(403);
     }
 
     public function show($id)
